@@ -9,6 +9,6 @@ describe("caesarFunction",() =>{
         const encode = true;
         const expected = "ifmmp xpsme"
         const actual = caesarFunction(input, shift, encode)
-
-    }
+        expect(actual).to.equal(expected);
+        }
 })
