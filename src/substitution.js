@@ -11,14 +11,13 @@ const substitutionModule = (function () {
     if(!alphabet || alphabet.length != 26 || !checkIfUnique(alphabet)){
       return false
     }
-    alphabetSplit = alphabet.split("")
    
     if(encode == true){
-      return getEncoded(input)
+      return getEncoded(input, alphabet)
 
     }
     else if(encode ==false){
-      return getDecoded(input)
+      return getDecoded(input, alphabet)
     }
   }
 
@@ -31,10 +30,14 @@ const substitutionModule = (function () {
     return commonAlphabetAr
   }
 
+
+  
+
   //Function to Decode Message
-  const getDecoded = (messageToDecode) => {
+  const getDecoded = (messageToDecode, alphabet) => {
     let messageToDecodeSplit = messageToDecode.split("")
-    let commonAlphabetAr = commonAlphabet();
+    const commonAlphabetAr = commonAlphabet();
+    const decoderAlphabetAr = alphabet.split("");
     let newLetter =""
 
     messageToDecodeSplit.forEach((letter)=>{
@@ -42,10 +45,10 @@ const substitutionModule = (function () {
         newLetter+=" "
       }
       else{
-        commonAlphabetAr.find((element)=>{
+        decoderAlphabetAr.find((element)=>{
           if(letter == element){
-            let commonIndex = commonAlphabetAr.indexOf(element)
-            newLetter += alphabetSplit.at(commonIndex)
+            let commonIndex = decoderAlphabetAr.indexOf(element)
+            newLetter += commonAlphabetAr.at(commonIndex)
             // console.log(newLetter)
           }
         })
@@ -57,9 +60,10 @@ const substitutionModule = (function () {
   
 
   //Function to Encode Message
-  const getEncoded = (messageToEncode) =>{
+  const getEncoded = (messageToEncode, alphabet) =>{
     let messageToEncodeSplit = messageToEncode.split("")
-    let commonAlphabetAr = commonAlphabet();
+    const commonAlphabetAr = commonAlphabet();
+    let alphabetSplit = alphabet.split("")
     let newLetter =""
 
     messageToEncodeSplit.forEach((letter)=>{
@@ -101,7 +105,7 @@ const substitutionModule = (function () {
     return unique
    }
    console.log("ykrrpik")
-   console.log(substitution("message", ".lmoknijbuhvygctfxrdzeswaq"))
+   console.log(substitution("message", "plmoknijbuhvygctfxrdzeswaq"))
 
   return {
     substitution,
