@@ -24,6 +24,7 @@ const caesarModule = (function () {
       let inputSeparated = separateInput(lowerCaseInput);
       let getAsciis = getAsciiValue(inputSeparated);
       
+
       if ((encode == true && shift > 0) || (encode == false && shift < 0)) {
         shifted = getEncoded(getAsciis, newShift);
       } 
@@ -157,10 +158,11 @@ const caesarModule = (function () {
     return finalCode
 
   }
+//BPQA qa I amkzmb umaaiom!
+  console.log(caesar("ebiil", -3, true))
+
 
   return {
     caesar,
   };
 })();
-
-module.exports = { caesar: caesarModule.caesar };
