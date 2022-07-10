@@ -9,6 +9,10 @@ const polybiusModule = (function () {
   function polybius(input, encode = true) {
     // your solution code here
 
+    if(input.length == 0 || !input){
+      return false
+    }
+
     //FUNCTIONS
     //This function creates the grid
     const createCodeGrid = () => {
@@ -33,21 +37,20 @@ const polybiusModule = (function () {
     }
 
     //This functions splits the input in pairs of numbers if needs to be decode
-    const splitInPairs = (stringOfNumbers) =>{
+    const splitInPairs = (stringOfNumbers) => {
       numbersToDecodeSplit = stringOfNumbers.split("");
       let pairArray = []
-      let numberOfPairs = numbersToDecodeSplit.length/2
-  
-      for(let i = 0; i < numberOfPairs; i++){
-        let temp = ""
-        for(let k = 0; k < 2; k++){
+      let numberOfPairs = numbersToDecodeSplit.length / 2
 
-          if(numbersToDecodeSplit[0] == " "){
+      for (let i = 0; i < numberOfPairs; i++) {
+        let temp = ""
+        for (let k = 0; k < 2; k++) {
+
+          if (numbersToDecodeSplit[0] == " ") {
             temp += numbersToDecodeSplit[0]
             numbersToDecodeSplit.splice(0, 1)
             k++
-          }
-          else{
+          } else {
             temp += numbersToDecodeSplit[0]
             numbersToDecodeSplit.splice(0, 1)
           }
@@ -64,6 +67,7 @@ const polybiusModule = (function () {
       let rowIndex = 0
       let columnIndex = 0
       let found = false
+      
 
       //Create grid
       polyGrid = createCodeGrid()
@@ -72,11 +76,9 @@ const polybiusModule = (function () {
         let encodedMessageTemp = ""
         if (letter == "i" || letter == "j") {
           encodedMessageTemp = "42"
-        } 
-        else if(letter == " ") {
+        } else if (letter == " ") {
           encodedMessageTemp = " "
-        }
-        else{
+        } else {
           polyGrid.forEach((row) => {
             if (row.some((element) => element == letter)) {
               row.forEach((letterInTheRow) => {
@@ -99,30 +101,26 @@ const polybiusModule = (function () {
     }
 
     //This function decodes a msg from numbers to letters
-    const getDecoded = (numbersToDecode)=>{
+    const getDecoded = (numbersToDecode) => {
       let msg = ""
       let pairsToLookUp = splitInPairs(numbersToDecode)
-      
+
       return lookForTheLetterInTheGrid(pairsToLookUp)
     }
 
-
-
     //This function look for the letter in the grid
-    const lookForTheLetterInTheGrid = (arrayOfPairs)=>{
+    const lookForTheLetterInTheGrid = (arrayOfPairs) => {
       polyGrid = createCodeGrid()
       // console.log("grid created")
       let letters = ""
 
-      arrayOfPairs.forEach((pair)=>{
-        if(pair == "42"){
+      arrayOfPairs.forEach((pair) => {
+        if (pair == "42") {
           // console.log("ij")
           letters += polyGrid[1][3]
-        }
-        else if(pair == " "){
+        } else if (pair == " ") {
           letters += " "
-        }
-        else{
+        } else {
           splitPair = pair.split("")
 
           columnPos = splitPair[0] - 1
@@ -131,27 +129,22 @@ const polybiusModule = (function () {
           letters += polyGrid[rowPos][columnPos]
           // console.log(letters)
         }
-
-        
       })
       return letters
     }
 
     //This function checks if the message is odd or not
-    const checkIfMessageIsOdd = (strToCheck) =>{ //es impar?
+    const checkIfMessageIsOdd = (strToCheck) => { //es impar?
       let splitAlready = strToCheck.split(" ")
       let isOdd = false
       let count = 0;
 
-      splitAlready.forEach((pair)=>{
-        if(pair == " "){
+      splitAlready.forEach((pair) => {
+        if (pair == " ") {
           // count++
-        }
-        else if(pair.length % 2 != 0 ){
+        } else if (pair.length % 2 != 0) {
           isOdd = true
         }
-        
-        
       })
 
       return isOdd
@@ -160,39 +153,21 @@ const polybiusModule = (function () {
 
     //FINAL RETURN
     //Check if code or decode message
-    if(encode){
-      
-      return getEncoded(input.split(""))
-    }
-    else if(encode==false){
+    if (encode == true) {
+      return getEncoded(input.toLowerCase().split(""))
+    } else if (encode == false) {
       //check if length of input is odd
-      
-      if(checkIfMessageIsOdd(input)){
+      if (checkIfMessageIsOdd(input)) {
         // console.log("odd")
-
         return false
-        
-      }
-      else{
+      } else {
         // console.log("even")
         let decodedMsg = getDecoded(input)
         return decodedMsg
       }
-      
-      
-
-      //this function splits into letters the input and adds it into an array
-      
-
     }
-    
-
   }
-
-
-
-  // console.log("my message");
-  console.log(polybius("2345 23513434112251", false))
+  // console.log(polybius("Hello"))
 
   return {
     polybius,

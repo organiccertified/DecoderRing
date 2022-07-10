@@ -14,35 +14,24 @@ const caesarModule = (function () {
       if (shift == 0 || shift > 25 || shift < -25) {
         return false
       }
-
       let newShift = 0;
       let shifted = []
-
       newShift = encode ? newShift = shift : newShift = shift * (-1)
-
       let lowerCaseInput = input.toLowerCase();
       let inputSeparated = separateInput(lowerCaseInput);
       let getAsciis = getAsciiValue(inputSeparated);
-      
+
       if ((encode == true && shift > 0) || (encode == false && shift < 0)) {
         shifted = getEncoded(getAsciis, newShift);
-      } 
-      else if((encode == false && shift > 0) || (encode == true && shift < 0)) {
+      } else if ((encode == false && shift > 0) || (encode == true && shift < 0)) {
         shifted = getDecoded(getAsciis, newShift);
       }
-
+      
       let finalcode = getLetters(shifted);
-
       return finalcode
-
-
-
     } catch (error) {
       return (`${error}`)
     }
-
-
-
   }
 
   //Separate the input and create an array of each char individually
@@ -66,7 +55,6 @@ const caesarModule = (function () {
         asciiValues.push(asciiValueOfLetter)
       }
     });
-
     return asciiValues;
   }
 
@@ -95,13 +83,9 @@ const caesarModule = (function () {
           let newValue = asciiValue + shift //80 +3
           newValues.push(newValue) //83
         }
-
-
       }
     })
-
     return newValues;
-
   }
 
   //Creating an array with new values (decoding)
@@ -117,8 +101,8 @@ const caesarModule = (function () {
       } else {
         //Does it maxes 122 ? ex  120 + 3 = 123
         let skipValue = asciiValue + (shift)
-        if (skipValue < minTop) { 
-          let newValue = maxTop + 1 - (minTop - skipValue) 
+        if (skipValue < minTop) {
+          let newValue = maxTop + 1 - (minTop - skipValue)
           newValues.push(newValue)
         }
         //Does it mins 97? 97 - 1 = 96
@@ -129,33 +113,24 @@ const caesarModule = (function () {
           let newValue = asciiValue + shift //80 +3
           newValues.push(newValue) //83
         }
-
-
       }
     })
-
     return newValues;
-
   }
 
 
   //Get the letters from the asccii values
   function getLetters(asciiVals) {
     let finalCode = ""
-
     asciiVals.forEach(value => {
       if (value == "" || value == " ") {
         finalCode += " "
-
       } else {
         let letter = String.fromCodePoint(value)
         finalCode += letter
       }
-
     })
-
     return finalCode
-
   }
 
   return {
@@ -163,4 +138,6 @@ const caesarModule = (function () {
   };
 })();
 
-module.exports = { caesar: caesarModule.caesar };
+module.exports = {
+  caesar: caesarModule.caesar
+};
