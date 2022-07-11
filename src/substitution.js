@@ -56,7 +56,8 @@ const substitutionModule = (function () {
   const getEncoded = (messageToEncode, alphabet) => {
     let messageToEncodeSplit = messageToEncode.split("")
     const commonAlphabetAr = commonAlphabet();
-    let alphabetSplit = alphabet.split("")
+    let alphabetSplitAr = []
+    alphabetSplitAr = alphabet.split("")
     let newLetter = ""
 
     messageToEncodeSplit.forEach((letter) => {
@@ -66,7 +67,7 @@ const substitutionModule = (function () {
         commonAlphabetAr.find((element) => {
           if (letter == element) {
             let commonIndex = commonAlphabetAr.indexOf(element)
-            newLetter += alphabetSplit.at(commonIndex)
+            newLetter += alphabetSplitAr.at(commonIndex)
             // console.log(newLetter)
           }
         })
@@ -94,7 +95,7 @@ const substitutionModule = (function () {
     return unique
   }
   
-  console.log(substitution("vhht tohm", "kalmvwxyfbchistunojrzdegpq", false))
+  console.log(substitution("vhht tohm", "kalmvwxyfbchistunojrzdegpq"))
 
   return {
     substitution,
